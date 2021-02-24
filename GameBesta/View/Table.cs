@@ -13,7 +13,7 @@
                         Table[x, y] = "    ## \n\n";
                     }
                     if(y != 0 && y != 19){
-                        Table[x, y] = "  | ";
+                        Table[x, y] = "   |   |";
                     }
                 }
             }

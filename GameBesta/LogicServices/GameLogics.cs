@@ -1,5 +1,4 @@
-﻿using System;
-using GameBesta.Controllers;
+﻿using GameBesta.Controllers;
 using GameBesta.Model;
 
 namespace GameBesta.LogicServices {
@@ -16,12 +15,12 @@ namespace GameBesta.LogicServices {
 
         public bool IsItPossibleToMoveThePlayer(char letter) {
             if (letter == 'a') {
-                if(thatController.Player.Position.Y - 2 >= 2) {
+                if(thatController.Player.Position.Y - 1 >= 1) {
                     return true;
                 }
             }
             else if (letter == 'd') {
-                if (thatController.Player.Position.Y + 2 <= 18) {
+                if (thatController.Player.Position.Y + 1 <= 18) {
                     return true;
                 }
             }
@@ -44,12 +43,12 @@ namespace GameBesta.LogicServices {
                 Position pos = new Position(thatController.Player.Position.X, thatController.Player.Position.Y);
 
                 if (letter == 'a') {
-                    thatController.Player.Position.Y -= 2;
+                    thatController.Player.Position.Y -= 1;
                     return pos;
                     
                 }
                 else if (letter == 'd') {
-                    thatController.Player.Position.Y += 2;
+                    thatController.Player.Position.Y += 1;
                     return pos;
                 }
                 else if (letter == 'w') {
@@ -63,14 +62,6 @@ namespace GameBesta.LogicServices {
                 return pos;
             }
             return thatController.Player.Position;
-        }
-
-        public string[,] IsPossibleToRenderAPlayer() {         // << wrong place to have game mechanics                      
-            thatController.Table1[thatController.Player.Position.X, thatController.Player.Position.Y - 1] = "  |";
-            if (thatController.Table1[thatController.Player.Position.X, thatController.Player.Position.Y].Length <= 5) {
-                thatController.Table1[thatController.Player.Position.X, thatController.Player.Position.Y] = thatController.Player.ToString() + "| ";
-            }
-            return thatController.Table1;
-        }
+        }        
     }
 }
