@@ -47,7 +47,7 @@ namespace GameBesta.Controllers {
         }
 
         public void PlayerPositionRender() {
-            RenderConsole.RenderTable(RenderConsole.RenderAPlayerPosition(this));               
+            RenderConsole.RenderTable(RenderConsole.ChangeAPlayerPosition(this));               
         }
 
         public string[,] RefreshTable() { // << IMPORTANT!!!

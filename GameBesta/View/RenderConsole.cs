@@ -9,7 +9,7 @@ namespace GameBesta.View {
             }            
         }
 
-        public static string[,] RenderAPlayerPosition(AController controller) {         // << wrong place to have game mechanics                      
+        public static string[,] ChangeAPlayerPosition(AController controller) {         // << wrong place to have game mechanics                      
             controller.Table1[controller.Player.Position.X, controller.Player.Position.Y - 1] = "  |";
             controller.Table1[controller.Player.Position.X, controller.Player.Position.Y] = controller.Player.ToString() + "| ";
             return controller.Table1;
