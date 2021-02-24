@@ -2,14 +2,10 @@
 
 namespace GameBesta.Model {
     class Spyder : Mob{
-        public Position Position { get; set; }
-        public string Shape { get; set; }
+        public Position Position { get; set; }        
         private State State { get; set; } = State.Agressive;
         public Spyder(Position position) {
-            Position = position;
-            Shape = "|||\n"
-                + "--O--\n"
-                + "|||";
+            Position = position;            
         }
 
         public void changePosition(Position newPos) {
@@ -22,6 +18,10 @@ namespace GameBesta.Model {
 
         public override double Damagee() {
             return State == 0 ? Damage * 1.5 : Damage * 0.5;
+        }
+
+        public override string ToString() {
+            return "<=>";
         }
     }
 }

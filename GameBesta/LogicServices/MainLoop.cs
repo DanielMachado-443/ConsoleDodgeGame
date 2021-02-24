@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using GameBesta.Controllers;
 using GameBesta.View;
 
@@ -16,14 +17,57 @@ namespace GameBesta.LogicServices {
         }
 
         public void Loop() {
+
+            int A_verifier = 0; // restoring the neultral value outside of the if scoope
+            int D_verifier = 0; // restoring the neultral value outside of the if scoope
+            int W_verifier = 0; // restoring the neultral value outside of the if scoope
+            int S_verifier = 0; // restoring the neultral value outside of the if scoope
+
             while (true) {
                 Console.Clear();
+                Controller1.PlayerPositionRenderAsync(); // theoreticlly updated the Controller1.Table                
 
-                Controller1.PlayerPositionRender(); // theoreticlly updated the Controller1.Table
-                GameLogics.MovingThePlayer(thisInputLayer.OnClicks());   // MovingThePlayer method gets a char as parameter, while OnClicks returns a char || NOW IT RETURNS A PLAYER     
+                if (A_verifier <= 3 && D_verifier <= 3 && W_verifier <= 3 && S_verifier <= 3) {
+                    Thread.Sleep(5);
+                    Controller1.PosAndChar = GameLogics.MovingThePlayer(thisInputLayer.OnClicks());   // MovingThePlayer method gets a char as parameter, while OnClicks returns a char || NOW IT RETURNS A PLAYER 
+                    char thatChar = Controller1.PosAndChar.Character;
+                    if (thatChar == 'a') {
+                        A_verifier++;
+                    }
+                    if (thatChar == 'd') {
+                        D_verifier++;
+                    }
+                    if (thatChar == 'w') {
+                        W_verifier++;
+                    }
+                    if (thatChar == 'a') {
+                        S_verifier++;
+                    }
+
+                    //==========================================================
+
+                    if (A_verifier == 4) {
+                        Thread.Sleep(100);
+                        A_verifier = 0;
+                    }
+                    if (D_verifier == 4) {
+                        Thread.Sleep(100);
+                        D_verifier = 0;
+                    }
+                    if (W_verifier == 4) {
+                        Thread.Sleep(100);
+                        W_verifier = 0;
+                    }
+                    if (S_verifier == 4) {
+                        Thread.Sleep(100);
+                        S_verifier = 0;
+                    }
+                }
+
                 Controller1.Table1 = Controller1.RefreshTable();
-                RenderConsole.ChangeAPlayerPosition(Controller1);                
-            }                                
+                GameLogics.MovingTheSpyders();
+                RenderConsole.MakeThePlayerAppearInTheActualPosition(Controller1);
+            }
         }
     }
 }
