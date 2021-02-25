@@ -19,13 +19,23 @@ namespace GameBesta.LogicServices {
 
         public bool IsItPossibleToMoveThePlayer(char letter) {
             if (letter == 'a') {
-                if (thatController.Player.Position.Y - 1 >= 1) {
-                    return true;
+                if (thatController.Player.Position.Y - 2 >= 1) {
+                    if ((thatController.Player.Position.Y - 2) % 2 == 0) { // just in case verification, not really necessary
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
             }
             else if (letter == 'd') {
-                if (thatController.Player.Position.Y + 1 <= 10) {
-                    return true;
+                if (thatController.Player.Position.Y + 2 <= 17) {
+                    if ((thatController.Player.Position.Y + 2) % 2 == 0) { // just in case verification, not really necessary
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
             }
             else if (letter == 'w') {
@@ -34,53 +44,58 @@ namespace GameBesta.LogicServices {
                 }
             }
             else if (letter == 's') {
-                if (thatController.Player.Position.X + 1 <= 17) {
+                if (thatController.Player.Position.X + 1 <= 16) {
                     return true;
                 }
             }
             return false;
         }
 
-        private bool IsThereAPlayerInTheSpyderNextPosition() {            
-            foreach (Spyder spd in thatController.Spyders) {
-                if (thatController.Player.Position.X == spd.Position.X && thatController.Player.Position.Y == spd.Position.Y) {
-                    return true;
-                }                
-            }
-            return false;
-        }
+        private bool[,] ThereIsNoPlayerInTheSpyderNextPosition() {   // NEED TO BE ANALISED     
 
-        private bool[,] IsItPossibleToMoveTheSpyder() { 
-            bool[,] aux = new bool[18, 12];
+            bool[,] aux = new bool[18, 19];
 
-            if (!IsThereAPlayerInTheSpyderNextPosition()) {       // << second line of verification                         
-                foreach (Spyder spd in thatController.Spyders) {                    
-                    if(spd.Position.X + 1 > 18) {
-                        aux[spd.Position.X, spd.Position.Y] = false;                        
-                    }
-                    else {
-                        aux[spd.Position.X, spd.Position.Y] = true;
-                    }
+            foreach (Spyder spd in thatController.Spyders) {                
+                if (thatController.Player.Position.X == spd.Position.X + 1 && thatController.Player.Position.Y == spd.Position.Y) {
+                    aux[spd.Position.X + 1, spd.Position.Y] = false;
                 }
-                return aux;
+                else {
+                    aux[spd.Position.X + 1, spd.Position.Y] = true;
+                }
             }
             return aux;
         }
-        
+
+        private bool[,] IsItPossibleToMoveTheSpyder() {
+
+            bool[,] aux = ThereIsNoPlayerInTheSpyderNextPosition();
+
+            foreach (bool obj in aux) {
+                if (obj) {
+                    foreach (Spyder spd in thatController.Spyders) {
+                        if (spd.Position.X + 1 > 17) {
+                            aux[spd.Position.X + 1, spd.Position.Y] = false;
+                        } // no need of else because this BOOL obj is ALREADY TRUE;                        
+                    }
+                }
+            }
+            return aux;
+        }
+
         public void MovingTheSpyders() {
+
             bool[,] aux = IsItPossibleToMoveTheSpyder();
-            
-            foreach(Spyder spd in thatController.Spyders) {
-                if(aux[spd.Position.X, spd.Position.Y]) { 
-                    if(spd.Position.X == 17) {
-                        spd.Position.X -= 17; // returns to the top
+
+            foreach (Spyder spd in thatController.Spyders) {
+                if (aux[spd.Position.X + 1, spd.Position.Y]) { // << if this particular bool matrix position is true
+                    if (spd.Position.X == 16) {
+                        spd.Position.X -= 16; // returns to the top
                     }
                     else {
                         spd.Position.X += 1;
-                    }                    
+                    }
                 }
-            }
-            RenderConsole.MakeTheSpydersAppearInTheRightPosition(thatController);
+            }            
         }
 
         public PosAndChar MovingThePlayer(char letter) {
@@ -89,12 +104,12 @@ namespace GameBesta.LogicServices {
                 Position pos = new Position(thatController.Player.Position.X, thatController.Player.Position.Y);
 
                 if (letter == 'a') {
-                    thatController.Player.Position.Y -= 1;
+                    thatController.Player.Position.Y -= 2;
                     return new PosAndChar(letter, pos);
 
                 }
                 else if (letter == 'd') {
-                    thatController.Player.Position.Y += 1;
+                    thatController.Player.Position.Y += 2;
                     return new PosAndChar(letter, pos);
                 }
                 else if (letter == 'w') {
@@ -108,6 +123,6 @@ namespace GameBesta.LogicServices {
                 return new PosAndChar(letter, pos);
             }
             return new PosAndChar(letter, thatController.Player.Position);
-        }        
+        }
     }
 }

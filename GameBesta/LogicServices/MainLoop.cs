@@ -6,12 +6,15 @@ using GameBesta.View;
 
 namespace GameBesta.LogicServices {
     class MainLoop {
+
         private AController Controller1 = new AController();
+
         private GameLogics GameLogics = new GameLogics();
         private InputLayer thisInputLayer = new InputLayer();
 
         public MainLoop(AController controller) {
             Controller1 = controller;
+
             thisInputLayer.Controller1 = controller;
             GameLogics.thatController = controller;
         }
@@ -25,7 +28,7 @@ namespace GameBesta.LogicServices {
 
             while (true) {
                 Console.Clear();
-                Controller1.PlayerPositionRenderAsync(); // theoreticlly updated the Controller1.Table                
+                RenderConsole.RenderTable(RenderConsole.MakeTheObjectsAppearInTheActualPosition(Controller1), Controller1);
 
                 if (A_verifier <= 3 && D_verifier <= 3 && W_verifier <= 3 && S_verifier <= 3) {
                     Thread.Sleep(5);
@@ -63,10 +66,12 @@ namespace GameBesta.LogicServices {
                         S_verifier = 0;
                     }
                 }
+                
+                GameLogics.MovingTheSpyders();
 
                 Controller1.Table1 = Controller1.RefreshTable();
-                GameLogics.MovingTheSpyders();
-                RenderConsole.MakeThePlayerAppearInTheActualPosition(Controller1);
+
+                RenderConsole.MakeTheObjectsAppearInTheActualPosition(Controller1);                
             }
         }
     }

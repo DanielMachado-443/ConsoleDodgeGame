@@ -47,12 +47,7 @@ namespace GameBesta.Controllers {
 
             Table1 = Table.setTable(); // setTable method returns a string[] array
             auxTable = Table.setTable(); // FRESH TABLE
-        }
-
-        public void PlayerPositionRenderAsync() {
-            RenderConsole.RenderTable(RenderConsole.MakeThePlayerAppearInTheActualPosition(this), this);
-            RenderConsole.MakeTheSpydersAppearInTheRightPosition(this);
-        }
+        }        
 
         public string[,] RefreshTable() { // << IMPORTANT!!!
             return Table.setTable();
