@@ -33,6 +33,21 @@ namespace GameBesta.LogicServices {
             spyders.Add(new Spyder(new Position(8, 8)));
             spyders.Add(new Spyder(new Position(2, 8)));
 
+            spyders.Add(new Spyder(new Position(2, 16)));
+            spyders.Add(new Spyder(new Position(15, 14)));
+            spyders.Add(new Spyder(new Position(5, 12)));
+            spyders.Add(new Spyder(new Position(11, 10)));
+            spyders.Add(new Spyder(new Position(3, 14)));
+            spyders.Add(new Spyder(new Position(12, 8)));
+            spyders.Add(new Spyder(new Position(8, 16)));
+            spyders.Add(new Spyder(new Position(2, 10)));
+            spyders.Add(new Spyder(new Position(5, 8)));
+            spyders.Add(new Spyder(new Position(9, 12)));
+            spyders.Add(new Spyder(new Position(3, 16)));
+            spyders.Add(new Spyder(new Position(6, 10)));
+            spyders.Add(new Spyder(new Position(9, 14)));
+            spyders.Add(new Spyder(new Position(3, 10)));
+
             AController thisController = new AController(player1, spyders);
 
             thisController.Table1[9, 4] = thisController.Player.ToString();
