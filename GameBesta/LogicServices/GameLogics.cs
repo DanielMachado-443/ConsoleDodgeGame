@@ -1,5 +1,6 @@
 ﻿using GameBesta.Controllers;
 using GameBesta.Model;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace GameBesta.LogicServices {
             thatController = controller;
         }
 
-        public bool IsItPossibleToMoveThePlayer(char letter) {
+        private bool IsItPossibleToMoveThePlayer(char letter) {
             if (letter == 'a') {
                 if (thatController.Player.Position.Y - 2 >= 1) {
                     if ((thatController.Player.Position.Y - 2) % 2 == 0) { // just in case verification, not really necessary
@@ -50,6 +51,38 @@ namespace GameBesta.LogicServices {
             }
             return false;
         }
+
+        public PosAndChar MovingThePlayer(char letter) {
+            if (IsItPossibleToMoveThePlayer(letter)) {
+
+                Position pos = new Position(thatController.Player.Position.X, thatController.Player.Position.Y);
+
+                if (letter == 'a') {
+                    thatController.Player.Position.Y -= 2;
+                    Console.Beep(500, 75);
+                    return new PosAndChar(letter, pos);                    
+                }
+                else if (letter == 'd') {
+                    thatController.Player.Position.Y += 2;
+                    Console.Beep(500, 75);
+                    return new PosAndChar(letter, pos);
+                }
+                else if (letter == 'w') {
+                    thatController.Player.Position.X -= 1;
+                    Console.Beep(500, 75);
+                    return new PosAndChar(letter, pos);
+                }
+                else if (letter == 's') {
+                    thatController.Player.Position.X += 1;
+                    Console.Beep(500, 75);
+                    return new PosAndChar(letter, pos);
+                }
+                return new PosAndChar(letter, pos);
+            }
+            return new PosAndChar(letter, thatController.Player.Position); // Player stays stopped
+        }
+
+        // SPYDERS RULES BELLOW // SPYDERS RULES BELLOW // SPYDERS RULES BELLOW // SPYDERS RULES BELLOW // SPYDERS RULES BELLOW // SPYDERS RULES BELLOW // SPYDERS RULES BELLOW
 
         private bool[,] ThereIsNoPlayerInTheSpyderNextPosition() {   // NEED TO BE ANALISED     
 
@@ -95,34 +128,7 @@ namespace GameBesta.LogicServices {
                         spd.Position.X += 1;
                     }
                 }
-            }            
-        }
-
-        public PosAndChar MovingThePlayer(char letter) {
-            if (IsItPossibleToMoveThePlayer(letter)) {
-
-                Position pos = new Position(thatController.Player.Position.X, thatController.Player.Position.Y);
-
-                if (letter == 'a') {
-                    thatController.Player.Position.Y -= 2;
-                    return new PosAndChar(letter, pos);
-
-                }
-                else if (letter == 'd') {
-                    thatController.Player.Position.Y += 2;
-                    return new PosAndChar(letter, pos);
-                }
-                else if (letter == 'w') {
-                    thatController.Player.Position.X -= 1;
-                    return new PosAndChar(letter, pos);
-                }
-                else if (letter == 's') {
-                    thatController.Player.Position.X += 1;
-                    return new PosAndChar(letter, pos);
-                }
-                return new PosAndChar(letter, pos);
-            }
-            return new PosAndChar(letter, thatController.Player.Position);
-        }
+            }               
+        }        
     }
 }

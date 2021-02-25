@@ -4,8 +4,10 @@ using GameBesta.Controllers;
 namespace GameBesta.View {
     class RenderConsole {
         public static void RenderTable(string[,] table, AController controller) {
+
             Console.WriteLine("\n");
             var oriColor = Console.ForegroundColor;
+
             foreach (string str in table) {
                 if(str == "!#!") {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -16,6 +18,7 @@ namespace GameBesta.View {
                 if (str == "    ##   " || str == "   ## \n\n") {
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
+                
                 Console.Write(str);
                 Console.ForegroundColor = oriColor;                
             }            

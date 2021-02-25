@@ -31,7 +31,7 @@ namespace GameBesta.LogicServices {
                 RenderConsole.RenderTable(RenderConsole.MakeTheObjectsAppearInTheActualPosition(Controller1), Controller1);
 
                 if (A_verifier <= 3 && D_verifier <= 3 && W_verifier <= 3 && S_verifier <= 3) {
-                    Thread.Sleep(5);
+                    Thread.Sleep(100);
                     Controller1.PosAndChar = GameLogics.MovingThePlayer(thisInputLayer.OnClicks());   // MovingThePlayer method gets a char as parameter, while OnClicks returns a char || NOW IT RETURNS A PLAYER 
                     char thatChar = Controller1.PosAndChar.Character;
                     if (thatChar == 'a') {
